@@ -114,6 +114,6 @@ $templatecontext = [
 
 // As this file seems to handle most of the layouts, we now need to distinguish which section we're in...
 include('topnotifications.php');
-include('accessibility.php');
+//include('accessibility.php');
 
 echo $OUTPUT->render_from_template('theme_hillhead40/drawers', $templatecontext);
