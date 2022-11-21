@@ -60,6 +60,10 @@ nav.navbar a.navbar-brand {
   font-size: 0;
 }
 
+.primary-navigation li[data-key="mycourses"] {
+  display: none;
+}
+
 #searchform-navbar {
   background-color: $hillhead-blue;
 }
