@@ -1,20 +1,7 @@
 // Accessibility features
 
-.disabled-accessibility-link {
-  background-color: #000 !important;
-  font-weight: bold !important;
-  padding: 5px 7px 3px 7px;
-  margin-left: -7px;
-  margin-right: -7px;
-  border-radius: 3px;
-}
-
 .accessibility-tools .block-body {
   padding-top: 0;
-}
-
-.disabled-accessibility-link a {
-  color: #ff0 !important;
 }
 
 body.hillhead40-font-comic {
@@ -71,7 +58,7 @@ body.hillhead40-spacing * {
   line-height: 2rem;
 }
 
-@mixin accessibility-theme($class, $background, $foreground) {
+@mixin accessibility-theme($class, $background, $foreground, $filtercolour: null) {
 
   body.hillhead40-#{$class} {
     background: $background !important;
@@ -83,6 +70,37 @@ body.hillhead40-spacing * {
     border-color: $foreground !important;
     border-radius: 0 !important;
     text-shadow: none !important;
+  }
+
+  // We need to remove the styling from navbar as there is a conflict going on.
+  body.hillhead40-#{$class} nav.navbar.fixed-top {
+    background-color: $background !important;
+  }
+
+  body.hillhead40-#{$class} .primary-navigation>nav>ul>li>a.nav-link, .navbar-light .navbar-nav .nav-link, .navbar-light .navbar-nav .nav-link:hover, .navbar-light .navbar-nav .nav-link:active, .input-group .mr-2 {
+    color: $foreground !important;
+  }
+
+  body.hillhead40-#{$class} #user-menu-toggle {
+    color: $foreground !important;
+  }
+
+  body.hillhead40-#{$class} .primary-navigation .moremenu .nav-link.active, body.hillhead40-#{$class} .primary-navigation .moremenu .nav-link:hover, body.hillhead40-#{$class} .btn-primary:hover {
+    background-color: $background !important;
+    border-bottom-color: $foreground !important;
+  }
+
+  body.hillhead40-#{$class} .block {
+    padding: 19px;
+  }
+
+  body.hillhead40-#{$class} .block-header {
+    border-bottom: 1px solid $background;
+  }
+
+  body.hillhead40-#{$class} .card.accessibility-tools {
+    margin-bottom: 0;
+    margin-top: 20px;
   }
 
   body.hillhead40-#{$class} .video-js,
@@ -98,9 +116,20 @@ body.hillhead40-spacing * {
   body.hillhead40-#{$class}.path-mod-quiz #mod_quiz_navblock .qnbutton.requiresgrading .trafficlight {
     background-color: $foreground;
   }
+
+  body.hillhead40-#{$class} .activityiconcontainer .activityicon, body.hillhead40-#{$class} .activityiconcontainer .icon {
+    filter: brightness(1) invert(0) !important;
+  }
+
+  @if $filtercolour {
+    body.hillhead40-#{$class} .activityiconcontainer .activityicon, body.hillhead40-#{$class} .activityiconcontainer .icon {
+      filter: brightness(1) invert(0) !important;
+      background-color: $filtercolour !important;
+    }
+  }
 }
 
-@include accessibility-theme(contrast-yb, #000, #ee6);
+@include accessibility-theme(contrast-yb, #000, #ee6, #ee6);
 
 @include accessibility-theme(contrast-by, #ee6, #111);
 
@@ -112,7 +141,7 @@ body.hillhead40-spacing * {
 
 @include accessibility-theme(contrast-bw, #f6f6f6, #111);
 
-@include accessibility-theme(contrast-wb, #111, #f6f6f6);
+@include accessibility-theme(contrast-wb, #111, #f6f6f6, #fff);
 
 body.hillhead40-contrast header .navbar-brand {
   background-image: none;
@@ -216,6 +245,10 @@ body.hillhead40-night, #page-my-index.hillhead40-night {
   color: #C4D6EE;
 }
 
+body.hillhead40-night #page.drawers .main-inner, body.hillhead40-night #searchform-navbar {
+  background-color: #274163 !important;
+}
+
 body.hillhead40-night .modal-content {
   background-color: #132030;
   border-color: #121E30;
@@ -225,14 +258,30 @@ body.hillhead40-night .modal-header, body.hillhead40-night .modal-footer {
   border-color: #182941;
 }
 
-body.hillhead40-night nav.navbar {
-  background-color: #274163;
-  border-bottom-color: #121E30;
+body.hillhead40-night nav.navbar.fixed-top {
+  background-color: #274163 !important;
+  border-bottom-color: #121E30 !important;
 }
 
 body.hillhead40-night #nav-drawer {
   background-color: #182941;
   border-right-color: #121E30;
+}
+
+body.hillhead40-night .drawer {
+  background-color: #182941 !important;
+}
+
+body.hillhead40-night nav.navbar.fixed-top a:hover, body.hillhead40-night nav.navbar.fixed-top a:visited {
+  background-color:#121E30 !important;
+}
+
+body.hillhead40-night nav.navbar.fixed-top ul li a, body.hillhead40-night nav.navbar.fixed-top ul li a:hover {
+  color: #789BCA !important;
+}
+
+body.hillhead40-night .icon {
+  color: #789BCA;
 }
 
 body.hillhead40-night #nav-drawer a {
@@ -251,10 +300,6 @@ body.hillhead40-night .accessibility-tools .accessibility-group h4 {
   color: #789bca;
 }
 
-body.hillhead40-night nav .btn-drawertoggle {
-  background-color: #182941;
-}
-
 body.hillhead40-night .card, body.hillhead40-night.path-course-view .course-content>ul>li.section {
   border-color: #121E30 !important;
   background-color: #1A2B41;
@@ -263,6 +308,11 @@ body.hillhead40-night .card, body.hillhead40-night.path-course-view .course-cont
 body.hillhead40-night .card .block-header, body.hillhead40-night.format-weeks .course-content>ul>li.section .sectionname, body.hillhead40-night .block .block-cards .course-summaryitem {
   border-color: #121E30;
   background-color: #274163;
+}
+
+body.hillhead40-night .card-body, body.hillhead40-night .message-app {
+  background-color: #274163;
+  border-radius: .5rem;
 }
 
 body#page-course-view-topics.hillhead40-night ul.topics li.section .sectionname {
@@ -315,8 +365,8 @@ body.hillhead40-night footer#page-footer a {
   color: #789BCA !important;
 }
 
-body.hillhead40-night a, body.hillhead40-night a.nav-link {
-  color: #789BCA;
+body.hillhead40-night a, body.hillhead40-night a.nav-link, body.hillhead40-night .description .course-description-item {
+  color: #789BCA !important;
 }
 
 body.hillhead40-night .nav-tabs {
@@ -347,6 +397,14 @@ body.hillhead40-night .block-course-overview .courseovbox {
 
 body.hillhead40-night #page-header .context-header-settings-menu a {
   color: #C4D6EE;
+}
+
+body.hillhead40-night .submissionnotgraded {
+  background-color: #efefef;
+}
+
+body.hillhead40-night .drawercontent a {
+  color: #C4D6EE !important;
 }
 
 body.hillhead40-night .alert {

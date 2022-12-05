@@ -17,7 +17,7 @@
 /**
  * Sets or unsets an accessible theme based on System Admin settings.
  *
- * Accepts a theme style and colour scheme to apply.
+ * Accepts a theme style and colour scheme to apply before redirecting.
  *
  * @package    theme_hillhead40
  * @copyright  2022 Greg Pedder <greg.pedder@glasgow.ac.uk>
@@ -31,7 +31,7 @@ $value = required_param('v', PARAM_RAW);
 
 require_login();
 
-$allowedPreferences = [
+$allowedpreferences = [
     'theme_hillhead40_accessibility'  => true,
     'theme_hillhead40_contrast'       => true,
     'theme_hillhead40_font'           => true,
@@ -43,16 +43,16 @@ $allowedPreferences = [
     'theme_hillhead40_readalert'      => true
 ];
 
-if(array_key_exists($setting, $allowedPreferences)) {
-    if($value=='clear') {
+if (array_key_exists($setting, $allowedpreferences)) {
+    if ($value == 'clear') {
         unset_user_preference($setting);
     } else {
         set_user_preference($setting, $value);
     }
 } else {
-    if($setting == 'theme_hillhead40_reset_accessibility') {
-        foreach($allowedPreferences as $unset=>$pointlessTrue) {
-            if($unset != 'theme_hillhead40_accessibility') {
+    if ($setting == 'theme_hillhead40_reset_accessibility') {
+        foreach ($allowedpreferences as $unset => $pointlesstrue) {
+            if ($unset != 'theme_hillhead40_accessibility') {
                 unset_user_preference($unset);
             }
         }

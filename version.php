@@ -15,9 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Brief Description
- *
- * More indepth description.
+ * UofG version file for the plugin.
  *
  * @package    theme_hillhead40
  * @copyright  2022 Greg Pedder <greg.pedder@glasgow.ac.uk>

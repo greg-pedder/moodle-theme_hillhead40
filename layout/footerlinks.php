@@ -24,17 +24,19 @@
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$footerLinks = [
+defined('MOODLE_INTERNAL') || die();
+
+$footerlinks = [
     'University Website' => 'https://www.gla.ac.uk',
     'Moodle Mobile App' => tool_mobile_create_app_download_url(),
     'Accessibility' => 'https://www.gla.ac.uk/legal/accessibility/statements/moodle',
     'Privacy and Cookies' => 'https://www.gla.ac.uk/legal/privacy/',
 ];
 
-$footerLinkText = '';
+$footerlinktext = '';
 
-foreach ($footerLinks as $name=>$link) {
-    $footerLinkText .= '<li><a href="'.$link.'">'.$name.'</a></li>';
+foreach ($footerlinks as $name => $link) {
+    $footerlinktext .= '<li><a href="'.$link.'">'.$name.'</a></li>';
 }
 
-$footerLinkText.= '<li class="tool_usertours-resettourcontainer"></li><li>'.page_doc_link('Help with this page').'</li>';
+$footerlinktext .= '<li class="tool_usertours-resettourcontainer"></li><li>' . page_doc_link('Help with this page') . '</li>';

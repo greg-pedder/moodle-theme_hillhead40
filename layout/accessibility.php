@@ -15,16 +15,18 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Brief Description
+ * File containing quick lookup of accessibility options
  *
- * More indepth description.
+ * Declare colour, spacing, size and font options in one convenient place.
  *
  * @package    theme_hillhead40
  * @copyright  2022 Greg Pedder <greg.pedder@glasgow.ac.uk>
  * @license    https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$colourOptions = [
+defined('MOODLE_INTERNAL') || die();
+
+$colouroptions = [
     [
         'o' => 'theme_hillhead40_contrast',
         'v' => 'clear',
@@ -40,7 +42,7 @@ $colourOptions = [
         'i' => 'fa-moon-o'
     ],
 ];
-$accessibleColourOptions = [
+$accessiblecolouroptions = [
     [
         'o' => 'theme_hillhead40_contrast',
         'v' => 'wb',
@@ -92,7 +94,7 @@ $accessibleColourOptions = [
     ]
 ];
 
-$fontOptions = [
+$fontoptions = [
     [
         'o' => 'theme_hillhead40_font',
         'v' => 'clear',
@@ -137,8 +139,8 @@ $fontOptions = [
     ]
 ];
 
-if ($theme_hillhead40_bold == 'on') {
-    $boldOptions = [
+if ($themehillhead40bold == 'on') {
+    $boldoptions = [
         [
             'o' => 'theme_hillhead40_bold',
             'v' => 'clear',
@@ -148,7 +150,7 @@ if ($theme_hillhead40_bold == 'on') {
         ]
     ];
 } else {
-    $boldOptions = [
+    $boldoptions = [
         [
             'o' => 'theme_hillhead40_bold',
             'v' => 'on',
@@ -159,8 +161,8 @@ if ($theme_hillhead40_bold == 'on') {
     ];
 }
 
-if ($theme_hillhead40_spacing == 'on') {
-    $spacingOptions = [
+if ($themehillhead40spacing == 'on') {
+    $spacingoptions = [
         [
             'o' => 'theme_hillhead40_spacing',
             'v' => 'clear',
@@ -170,7 +172,7 @@ if ($theme_hillhead40_spacing == 'on') {
         ]
     ];
 } else {
-    $spacingOptions = [
+    $spacingoptions = [
         [
             'o' => 'theme_hillhead40_spacing',
             'v' => 'on',
@@ -181,7 +183,7 @@ if ($theme_hillhead40_spacing == 'on') {
     ];
 }
 
-$sizeOptions = [
+$sizeoptions = [
     [
         'o' => 'theme_hillhead40_size',
         'v' => 'clear',
@@ -219,8 +221,8 @@ $sizeOptions = [
     ]
 ];
 
-if ($theme_hillhead40_read_highlight == 'on') {
-    $readHighlightOptions = [
+if ($themehillhead40readhighlight == 'on') {
+    $readhighlightoptions = [
         [
             'o' => 'theme_hillhead40_readtome',
             'v' => 'clear',
@@ -230,7 +232,7 @@ if ($theme_hillhead40_read_highlight == 'on') {
         ]
     ];
 } else {
-    $readHighlightOptions = [
+    $readhighlightoptions = [
         [
             'o' => 'theme_hillhead40_readtome',
             'v' => 'on',
@@ -241,8 +243,8 @@ if ($theme_hillhead40_read_highlight == 'on') {
     ];
 }
 
-if ($theme_hillhead40_stripstyles == 'on') {
-    $stripStyleOptions = [
+if ($themehillhead40stripstyles == 'on') {
+    $stripstyleoptions = [
         [
             'o' => 'theme_hillhead40_stripstyles',
             'v' => 'clear',
@@ -252,7 +254,7 @@ if ($theme_hillhead40_stripstyles == 'on') {
         ]
     ];
 } else {
-    $stripStyleOptions = [
+    $stripstyleoptions = [
         [
             'o' => 'theme_hillhead40_stripstyles',
             'v' => 'on',
@@ -263,58 +265,70 @@ if ($theme_hillhead40_stripstyles == 'on') {
     ];
 }
 
-$accTxt = '';
-$usesAccessibilityTools=get_user_preferences('theme_hillhead40_accessibility', false);
-if ($usesAccessibilityTools) {
-    $accTxt = '<div class="block card accessibility-tools"><div class="block-header"><h3>Accessibility Tools';
-    $accTxt .= '<span class="float-right"><a href="' . $CFG->wwwroot . '/theme/hillhead40/accessibility.php?o=theme_hillhead40_reset_accessibility&v=yes" class="mr-2" data-key="accessibility"><i class="fa fa-refresh"></i> Reset All</a>';
-    $accTxt .= '<a href="' . $CFG->wwwroot . '/theme/hillhead40/accessibility.php?o=theme_hillhead40_accessibility&v=clear" data-key="accessibility"><i class="fa fa-times"></i> Close</a></span></h3></div><div class="block-body">';
-    $accTxt .= '<div class="row">';
-    $accTxt .= '<div class="col-xs-12 col-md-6 col-lg-4 accessibility-group">';
-    $accTxt .= '<h4>Colourful Themes</h4><ul class="accessibility-features">';
-    foreach ($colourOptions as $opt) {
-        $accTxt .= '<li><a class="hh-acc" id="' . $opt['c'] . '" href="' . $CFG->wwwroot . '/theme/hillhead40/accessibility.php?o=' . $opt['o'] . '&v=' . $opt['v'] . '"><i class="fa ' . $opt['i'] . '"></i>' . $opt['t'] . '</a></li>';
+$acctxt = '';
+$usesaccessibilitytools = get_user_preferences('theme_hillhead40_accessibility', false);
+if ($usesaccessibilitytools) {
+    $acctxt = '<div class="block card accessibility-tools"><div class="block-header"><h3>Accessibility Tools';
+    $acctxt .= '<span class="float-right"><a href="' . $CFG->wwwroot . '/theme/hillhead40/accessibility.php?o=';
+    $acctxt .= 'theme_hillhead40_reset_accessibility&v=yes" class="mr-2" data-key="accessibility"><i class="fa fa-refresh"></i>';
+    $acctxt .= 'Reset All</a>';
+    $acctxt .= '<a href="' . $CFG->wwwroot . '/theme/hillhead40/accessibility.php?o=theme_hillhead40_accessibility&v=clear" ';
+    $acctxt .= 'data-key="accessibility"><i class="fa fa-times"></i> Close</a></span></h3></div><div class="block-body">';
+    $acctxt .= '<div class="row">';
+    $acctxt .= '<div class="col-xs-12 col-md-6 col-lg-4 accessibility-group">';
+    $acctxt .= '<h4>Colourful Themes</h4><ul class="accessibility-features">';
+    foreach ($colouroptions as $opt) {
+        $acctxt .= '<li><a class="hh-acc" id="' . $opt['c'] . '" href="' . $CFG->wwwroot;
+        $acctxt .= '/theme/hillhead40/accessibility.php?o=' . $opt['o'] . '&v=' . $opt['v'] . '"><i class="fa ' . $opt['i'] . '">';
+        $acctxt .= '</i>' . $opt['t'] . '</a></li>';
     }
-    $accTxt .= '</ul>';
-    $accTxt .= '<h4>Simple Themes</h4><ul class="accessibility-features">';
-    foreach ($accessibleColourOptions as $opt) {
-        $accTxt .= '<li><a class="hh-acc" id="' . $opt['c'] . '" href="' . $CFG->wwwroot . '/theme/hillhead40/accessibility.php?o=' . $opt['o'] . '&v=' . $opt['v'] . '"><i class="fa ' . $opt['i'] . '"></i>' . $opt['t'] . '</a></li>';
+    $acctxt .= '</ul>';
+    $acctxt .= '<h4>Simple Themes</h4><ul class="accessibility-features">';
+    foreach ($accessiblecolouroptions as $opt) {
+        $acctxt .= '<li><a class="hh-acc" id="' . $opt['c'] . '" href="' . $CFG->wwwroot . '/theme/hillhead40/accessibility.php?o=';
+        $acctxt .= $opt['o'] . '&v=' . $opt['v'] . '"><i class="fa ' . $opt['i'] . '"></i>' . $opt['t'] . '</a></li>';
     }
-    $accTxt .= '</ul>';
-    $accTxt .= '</div>';
-    $accTxt .= '<div class="col-xs-12 col-md-6 col-lg-4 accessibility-group">';
-    $accTxt .= '<h4>Font Style</h4><ul class="accessibility-features">';
+    $acctxt .= '</ul>';
+    $acctxt .= '</div>';
+    $acctxt .= '<div class="col-xs-12 col-md-6 col-lg-4 accessibility-group">';
+    $acctxt .= '<h4>Font Style</h4><ul class="accessibility-features">';
 
-    foreach ($fontOptions as $opt) {
-        $accTxt .= '<li><a class="hh-acc" id="' . $opt['c'] . '" href="' . $CFG->wwwroot . '/theme/hillhead40/accessibility.php?o=' . $opt['o'] . '&v=' . $opt['v'] . '"><i class="fa ' . $opt['i'] . '"></i>' . $opt['t'] . '</a></li>';
+    foreach ($fontoptions as $opt) {
+        $acctxt .= '<li><a class="hh-acc" id="' . $opt['c'] . '" href="' . $CFG->wwwroot . '/theme/hillhead40/accessibility.php?o=';
+        $acctxt .= $opt['o'] . '&v=' . $opt['v'] . '"><i class="fa ' . $opt['i'] . '"></i>' . $opt['t'] . '</a></li>';
     }
-    $accTxt .= '</ul>';
-    $accTxt .= '<h4>Readability</h4><ul class="accessibility-features">';
-    foreach ($boldOptions as $opt) {
-        $accTxt .= '<li><a class="hh-acc" id="' . $opt['c'] . '" href="' . $CFG->wwwroot . '/theme/hillhead40/accessibility.php?o=' . $opt['o'] . '&v=' . $opt['v'] . '"><i class="fa ' . $opt['i'] . '"></i>' . $opt['t'] . '</a></li>';
+    $acctxt .= '</ul>';
+    $acctxt .= '<h4>Readability</h4><ul class="accessibility-features">';
+    foreach ($boldoptions as $opt) {
+        $acctxt .= '<li><a class="hh-acc" id="' . $opt['c'] . '" href="' . $CFG->wwwroot . '/theme/hillhead40/accessibility.php?o=';
+        $acctxt .= $opt['o'] . '&v=' . $opt['v'] . '"><i class="fa ' . $opt['i'] . '"></i>' . $opt['t'] . '</a></li>';
     }
-    foreach ($spacingOptions as $opt) {
-        $accTxt .= '<li><a class="hh-acc" id="' . $opt['c'] . '" href="' . $CFG->wwwroot . '/theme/hillhead40/accessibility.php?o=' . $opt['o'] . '&v=' . $opt['v'] . '"><i class="fa ' . $opt['i'] . '"></i>' . $opt['t'] . '</a></li>';
+    foreach ($spacingoptions as $opt) {
+        $acctxt .= '<li><a class="hh-acc" id="' . $opt['c'] . '" href="' . $CFG->wwwroot . '/theme/hillhead40/accessibility.php?o=';
+        $acctxt .= $opt['o'] . '&v=' . $opt['v'] . '"><i class="fa ' . $opt['i'] . '"></i>' . $opt['t'] . '</a></li>';
     }
-    foreach ($stripStyleOptions as $opt) {
-        $accTxt .= '<li><a class="hh-acc" id="' . $opt['c'] . '" href="' . $CFG->wwwroot . '/theme/hillhead40/accessibility.php?o=' . $opt['o'] . '&v=' . $opt['v'] . '"><i class="fa ' . $opt['i'] . '"></i>' . $opt['t'] . '</a></li>';
+    foreach ($stripstyleoptions as $opt) {
+        $acctxt .= '<li><a class="hh-acc" id="' . $opt['c'] . '" href="' . $CFG->wwwroot . '/theme/hillhead40/accessibility.php?o=';
+        $acctxt .= $opt['o'] . '&v=' . $opt['v'] . '"><i class="fa ' . $opt['i'] . '"></i>' . $opt['t'] . '</a></li>';
     }
-    $accTxt .= '</ul>';
-    $accTxt .= '</div>';
-    $accTxt .= '<div class="col-xs-12 col-lg-4 accessibility-group"><div class="row"><div class="col-xs-12 col-md-6 col-lg-12">';
-    $accTxt .= '<h4>Text Size and Spacing</h4><ul class="accessibility-features">';
-    foreach ($sizeOptions as $opt) {
-        $accTxt .= '<li><a class="hh-acc" id="' . $opt['c'] . '" href="' . $CFG->wwwroot . '/theme/hillhead40/accessibility.php?o=' . $opt['o'] . '&v=' . $opt['v'] . '"><i class="fa ' . $opt['i'] . '"></i>' . $opt['t'] . '</a></li>';
+    $acctxt .= '</ul>';
+    $acctxt .= '</div>';
+    $acctxt .= '<div class="col-xs-12 col-lg-4 accessibility-group"><div class="row"><div class="col-xs-12 col-md-6 col-lg-12">';
+    $acctxt .= '<h4>Text Size and Spacing</h4><ul class="accessibility-features">';
+    foreach ($sizeoptions as $opt) {
+        $acctxt .= '<li><a class="hh-acc" id="' . $opt['c'] . '" href="' . $CFG->wwwroot . '/theme/hillhead40/accessibility.php?o=';
+        $acctxt .= $opt['o'] . '&v=' . $opt['v'] . '"><i class="fa ' . $opt['i'] . '"></i>' . $opt['t'] . '</a></li>';
     }
-    $accTxt .= '</ul></div><div class="col-xs-12 col-md-6 col-lg-12">';
-    $accTxt .= '<h4>Read To Me</h4><ul class="accessibility-features">';
-    foreach ($readHighlightOptions as $opt) {
-        $accTxt .= '<li><a class="hh-acc" id="' . $opt['c'] . '" href="' . $CFG->wwwroot . '/theme/hillhead40/accessibility.php?o=' . $opt['o'] . '&v=' . $opt['v'] . '"><i class="fa ' . $opt['i'] . '"></i>' . $opt['t'] . '</a></li>';
+    $acctxt .= '</ul></div><div class="col-xs-12 col-md-6 col-lg-12">';
+    $acctxt .= '<h4>Read To Me</h4><ul class="accessibility-features">';
+    foreach ($readhighlightoptions as $opt) {
+        $acctxt .= '<li><a class="hh-acc" id="' . $opt['c'] . '" href="' . $CFG->wwwroot . '/theme/hillhead40/accessibility.php?o=';
+        $acctxt .= $opt['o'] . '&v=' . $opt['v'] . '"><i class="fa ' . $opt['i'] . '"></i>' . $opt['t'] . '</a></li>';
     }
-    $accTxt .= '</ul>';
-    $accTxt .= '</div></div></div>';
-    $accTxt .= '</div>';
-    $accTxt .= '</div></div>';
+    $acctxt .= '</ul>';
+    $acctxt .= '</div></div></div>';
+    $acctxt .= '</div>';
+    $acctxt .= '</div></div>';
 }
 
-$templatecontext['accessibilityText'] = $accTxt;
+$templatecontext['accessibilityText'] = $acctxt;
