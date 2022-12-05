@@ -15,10 +15,10 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * A drawer based layout for the boost theme.
+ * A drawer based layout for the Hillhead 4.0 theme, inspired by Boost.
  *
- * @package   theme_boost
- * @copyright 2021 Bas Brands
+ * @package   theme_hillhead40
+ * @copyright 2022 Greg Pedder <greg.pedder@glasgow.ac.uk>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -63,6 +63,9 @@ if (!$courseindex) {
     $courseindexopen = false;
 }
 
+// Append any extra things to $extraclasses...
+include('extraclasses.php');
+
 $bodyattributes = $OUTPUT->body_attributes($extraclasses);
 $forceblockdraweropen = $OUTPUT->firstview_fakeblocks();
 
@@ -81,6 +84,37 @@ if ($PAGE->has_secondary_navigation()) {
 $primary = new core\navigation\output\primary($PAGE);
 $renderer = $PAGE->get_renderer('core');
 $primarymenu = $primary->export_for_template($renderer);
+
+// Because the navigation hook *_extend_navigation() no longer appears to
+// work in M4, we need to slot this in before Preferences, and it's divider.
+if (count($primarymenu['user']['items']) > 0) {
+    $usesAccessibilityTools=get_user_preferences('theme_hillhead40_accessibility', false);
+    $vArg = 'clear';
+    $spanText = 'Hide';
+    if($usesAccessibilityTools === false) {
+        $vArg = 'on';
+        $spanText = 'Show';
+    }
+
+    $branchlabel = $spanText . ' Accessibility Tools';
+    $branchtitle = str_replace(' ', '-', $branchlabel);
+
+    $accessibilityObj = new stdClass();
+    $accessibilityObj->itemtype = 'link';
+    $accessibilityObj->title = $branchlabel;
+    $accessibilityObj->titleidentifier = $branchtitle;
+    $accessibilityURL = new moodle_url('/theme/hillhead40/accessibility.php?o=theme_hillhead40_accessibility&v=' . $vArg);
+    $accessibilityObj->url = $accessibilityURL;
+    $accessibilityObj->divider = false;
+    $accessibilityObj->link = true;
+
+    // Here begins the slicing and dicing...
+    $tmpitems = array_slice($primarymenu['user']['items'], -4, null, true);
+    // ...add our Accessibility link to the beginning of this temp array...
+    array_unshift($tmpitems, $accessibilityObj);
+    // ...finally, replace the items at the end of the array, with the new item...
+    array_splice($primarymenu['user']['items'], -4, null, $tmpitems);
+}
 
 $buildregionmainsettings = !$PAGE->include_region_main_settings_in_header_actions() && !$PAGE->has_secondary_navigation();
 // If the settings menu will be included in the header then don't add it here.
@@ -110,10 +144,13 @@ $templatecontext = [
     'headercontent' => $headercontent,
     'addblockbutton' => $addblockbutton,
     'footerlinks' => $footerLinkText,
+    'extrascripts' => $extraScripts
 ];
 
-// As this file seems to handle most of the layouts, we now need to distinguish which section we're in...
+// As this file seems to handle most of the layouts,
+// we now need to distinguish which section we're in...
 include('topnotifications.php');
-//include('accessibility.php');
+// Integrate the link to the Accessibility tool also....
+include('accessibility.php');
 
 echo $OUTPUT->render_from_template('theme_hillhead40/drawers', $templatecontext);
