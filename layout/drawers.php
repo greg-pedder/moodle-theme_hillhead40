@@ -98,7 +98,11 @@ if (isset($primarymenu['user']['items']) && count($primarymenu['user']['items'])
     $accessibilityobj->itemtype = 'link';
     $accessibilityobj->title = $branchlabel;
     $accessibilityobj->titleidentifier = $branchtitle;
-    $accessibilityurl = new moodle_url('/theme/hillhead40/accessibility.php?o=theme_hillhead40_accessibility&v=' . $varg);
+    $args = [
+        'o' => 'theme_hillhead40_accessibility',
+        'v' => $varg
+    ];
+    $accessibilityurl = new moodle_url('/theme/hillhead40/accessibility.php', $args);
     $accessibilityobj->url = $accessibilityurl;
     $accessibilityobj->divider = false;
     $accessibilityobj->link = true;
